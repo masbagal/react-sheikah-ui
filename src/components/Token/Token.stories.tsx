@@ -6,16 +6,18 @@ import { Colors } from './Token';
 import Text from '../Text/Text';
 
 const ColorSwatchOuter = styled.div`
-  margin: 0 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
   width: 25%;
 `;
 
 const ColorPreview = styled.div<{ color: string }>`
   border-radius: 3rem;
-  width: 4rem;
-  height: 4rem;
+  width: 2rem;
+  height: 2rem;
   background: ${props => props.color};
   margin-bottom: 0.5rem;
   padding: 0.5rem;
@@ -26,12 +28,19 @@ function ColorSwatch(props: { color: keyof typeof Colors }) {
   return (
     <ColorSwatchOuter>
       <ColorPreview color={colorHex} />
-      <Text variant="tiny" color="uiDarkPrimary" className="font-bold">
+      <Text variant="tiny" color="uiDarkPrimary">
         {props.color}
       </Text>
     </ColorSwatchOuter>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+  background: #eaeaea;
+`;
 
 export default {
   title: 'Core/Token',
@@ -39,7 +48,7 @@ export default {
 } as Meta;
 
 export const UIColors = () => (
-  <div className="flex flex-wrap p-4 bg-gray-100">
+  <Container>
     <ColorSwatch color="uiDarkPrimary" />
     <ColorSwatch color="uiDarkSecondary" />
     <ColorSwatch color="uiLight" />
@@ -48,7 +57,7 @@ export const UIColors = () => (
     <ColorSwatch color="uiGreen" />
     <ColorSwatch color="uiRed" />
     <ColorSwatch color="uiYellow" />
-  </div>
+  </Container>
 );
 
 UIColors.parameters = {

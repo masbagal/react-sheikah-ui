@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import styled from 'styled-components';
 import { motion, useAnimation } from 'framer-motion';
 import { Colors } from '../Token/Token';
@@ -6,8 +6,8 @@ import Text from '../Text/Text';
 
 export interface ButtonProps {
   text: string;
-  className?: string;
   onClick: (e: React.MouseEvent<HTMLElement>) => void;
+  style?: CSSProperties;
 }
 
 /**
@@ -16,11 +16,11 @@ export interface ButtonProps {
  * ===================================
  * */
 const OuterButton = styled.button`
+  padding: 1px;
   cursor: pointer;
   font-family: inherit;
   border: none;
-  box-sizing: content-box;
-  padding: 1px;
+  box-sizing: border-box;
   background: ${Colors.uiDarkPrimary}dd;
   border-radius: 0.125rem;
   position: relative;
@@ -38,8 +38,10 @@ const OuterButton = styled.button`
  * */
 
 const InnerButton = styled.div<{ isFocused: boolean }>`
-  box-sizing: content-box;
+  box-sizing: border-box;
   padding: 0.5rem 2.5rem;
+  width: 100%;
+  height: 100%;
   border-style: solid;
   border-width: 1px;
   border-color: ${props =>
@@ -98,7 +100,7 @@ const ArrowBottomRight = styled(Arrow)`
 `;
 
 const Button: React.FC<ButtonProps> = props => {
-  const { text, className, onClick } = props;
+  const { text, onClick, style } = props;
   const [isFocused, toggleFocus] = useState(false);
   const controls = useAnimation();
 
@@ -124,12 +126,12 @@ const Button: React.FC<ButtonProps> = props => {
 
   return (
     <OuterButton
-      className={className}
       onClick={handleClick}
       onFocus={handleEnterFocus}
       onMouseEnter={handleEnterFocus}
       onBlur={handleExitFocus}
       onMouseLeave={handleExitFocus}
+      style={style}
     >
       <InnerButton isFocused={isFocused}>
         <Text>{text}</Text>

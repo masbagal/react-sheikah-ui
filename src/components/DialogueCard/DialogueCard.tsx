@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import styled from 'styled-components';
 import Text from '../Text/Text';
 import { Colors } from '../Token/Token';
@@ -7,6 +7,7 @@ export interface DialogueCardProps {
   children: React.ReactNode;
   className?: string;
   legend?: string;
+  style?: CSSProperties;
 }
 
 const DialogContainer = styled.div`
@@ -37,9 +38,9 @@ const LegendContainer = styled.div`
 `;
 
 const DialogueCard: React.FC<DialogueCardProps> = props => {
-  const { legend } = props;
+  const { legend, style } = props;
   return (
-    <DialogContainer>
+    <DialogContainer style={style}>
       {legend && (
         <LegendContainer>
           <Text variant="base">{legend}</Text>

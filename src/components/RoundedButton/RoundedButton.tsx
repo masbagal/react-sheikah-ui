@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import styled from 'styled-components';
 import { Colors } from '../Token/Token';
 import Text from '../Text/Text';
@@ -7,17 +7,18 @@ export interface RoundedButtonProps {
   text: string;
   className?: string;
   onClick: (e: React.MouseEvent<HTMLElement>) => void;
+  style?: CSSProperties;
 }
 
 const OuterRoundedButton = styled.button`
   cursor: pointer;
-  padding: 1px;
   border: none;
-  box-sizing: content-box;
   background: ${Colors.uiDarkPrimary}dd;
   border-radius: 9999px;
   position: relative;
+  padding: 1px;
   font-family: inherit;
+  position: relative;
   &:focus {
     outline: none; // <Thing> when hovered
   }
@@ -25,7 +26,6 @@ const OuterRoundedButton = styled.button`
 
 const InnerRoundedButton = styled.div<{ isFocused: boolean }>`
   border-radius: 9999px;
-  box-sizing: content-box;
   padding: 0.5rem 2.5rem;
   border-width: 1px;
   border-style: solid;
@@ -36,7 +36,7 @@ const InnerRoundedButton = styled.div<{ isFocused: boolean }>`
 `;
 
 const RoundedButton: React.FC<RoundedButtonProps> = props => {
-  const { text, className, onClick } = props;
+  const { text, className, onClick, style } = props;
   const [isFocused, toggleFocus] = useState(false);
 
   function handleEnterFocus() {
@@ -59,6 +59,7 @@ const RoundedButton: React.FC<RoundedButtonProps> = props => {
       onMouseEnter={handleEnterFocus}
       onBlur={handleExitFocus}
       onMouseLeave={handleExitFocus}
+      style={style}
     >
       <InnerRoundedButton isFocused={isFocused}>
         <Text variant="base">{text}</Text>

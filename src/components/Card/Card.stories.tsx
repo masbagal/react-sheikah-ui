@@ -43,7 +43,7 @@ const CardContentExample2 = styled.div`
 export const Examples = () => (
   <>
     <Container>
-      <Card width={'300px'} edges="hard" withBorder>
+      <Card style={{ width: '300px' }} edges="hard" withBorder>
         <CardContentExample1 className="p-4">
           <Text variant="title-3" withDivider>
             Arrow x5
@@ -58,7 +58,7 @@ export const Examples = () => (
     </Container>
 
     <Container>
-      <Card width="80%" edges="soft">
+      <Card style={{ width: '80%' }} edges="soft">
         <CardContentExample2 className="flex md:flex-row flex-col items-center p-8">
           <img
             src="https://static.wikia.nocookie.net/zelda/images/b/b3/Breath_of_the_Wild_Food_Dish_%28Skewers%29_Mushroom_Skewers_%28Icon%29.png"

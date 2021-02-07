@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import styled from 'styled-components';
 import { Colors, FontSize } from '../Token/Token';
 
+type ColorType = keyof typeof Colors;
 export interface TextProps {
   variant?:
     | 'title-1'
@@ -14,10 +15,11 @@ export interface TextProps {
   /**
    * The colors of the text
    */
-  color?: keyof typeof Colors;
+  color?: ColorType;
   children: React.ReactChild | React.ReactNode;
   withDivider?: boolean;
-  className?: string;
+  block?: boolean;
+  style?: CSSProperties;
 }
 
 function getRenderedTextCompontentFromVariant(variant: TextProps['variant']) {
@@ -83,23 +85,25 @@ function getRenderedText(TextVariant: any) {
   const RenderedText = styled(TextVariant)<{
     color: TextProps['color'];
     withDivider: boolean;
+    block: boolean;
   }>`
     color: ${props => Colors[props.color as string]};
     border-bottom-style: solid;
     border-bottom-color: ${Colors.uiDarkSecondary};
     border-bottom-width: ${props => (props.withDivider ? '1px' : '0')};
+    display: ${props => (props.block ? 'block' : 'inline-block')};
   `;
 
   return RenderedText;
 }
 
 const Text: React.FC<TextProps> = props => {
-  const { variant, color, withDivider } = props;
+  const { variant, color, withDivider, style } = props;
   const SelectedTextVariant = getRenderedTextCompontentFromVariant(variant);
   const RenderedText = getRenderedText(SelectedTextVariant);
 
   return (
-    <RenderedText color={color} withDivider={withDivider}>
+    <RenderedText color={color} withDivider={withDivider} style={style}>
       {props.children}
     </RenderedText>
   );
@@ -108,6 +112,7 @@ const Text: React.FC<TextProps> = props => {
 Text.defaultProps = {
   variant: 'base',
   color: 'uiLight',
+  block: false,
 };
 
 export default Text;
