@@ -29,4 +29,5 @@ Default.args = {
   helperText: 'The name that will be used on your journey',
   errorText: 'There has been an error in this input',
   isError: false,
+  placeholder: 'input your name here',
 };

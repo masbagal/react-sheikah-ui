@@ -1,8 +1,8 @@
 import React, { CSSProperties } from 'react';
 import styled from 'styled-components';
 import { Colors, FontSize } from '../Token/Token';
+import { ColorEnums } from '../types';
 
-type ColorType = keyof typeof Colors;
 export interface TextProps {
   variant?:
     | 'title-1'
@@ -15,7 +15,7 @@ export interface TextProps {
   /**
    * The colors of the text
    */
-  color?: ColorType;
+  color?: ColorEnums;
   children: React.ReactChild | React.ReactNode;
   withDivider?: boolean;
   block?: boolean;
@@ -98,12 +98,17 @@ function getRenderedText(TextVariant: any) {
 }
 
 const Text: React.FC<TextProps> = props => {
-  const { variant, color, withDivider, style } = props;
+  const { variant, color, withDivider, style, block } = props;
   const SelectedTextVariant = getRenderedTextCompontentFromVariant(variant);
   const RenderedText = getRenderedText(SelectedTextVariant);
 
   return (
-    <RenderedText color={color} withDivider={withDivider} style={style}>
+    <RenderedText
+      color={color}
+      withDivider={withDivider}
+      style={style}
+      block={block}
+    >
       {props.children}
     </RenderedText>
   );

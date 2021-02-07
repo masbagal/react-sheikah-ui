@@ -16,25 +16,28 @@ const EDGE_MAPPING: { [key: string]: string } = {
 
 const OuterCard = styled.div<{ edges: CardProps['edges'] }>`
   background-color: ${Colors.uiDarkPrimary}c8;
-  display: flex;
-  position: relative;
   backdrop-filter: blur(2px);
+  position: relative;
   border-radius: ${props => EDGE_MAPPING[props.edges as string]};
 `;
 
-const InnerCard = styled.div<{ withBorder: boolean }>`
-  width: 100%;
+const InnerBorder = styled.div<{ withBorder: boolean }>`
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
   border-style: solid;
-  margin: 2px;
   border-color: ${Colors.uiDarkSecondary};
   border-width: ${props => (props.withBorder ? '1px' : 0)};
+  position: absolute;
+  top: 2px;
+  left: 2px;
 `;
 
 const Card: React.FC<CardProps> = props => {
   const { edges, withBorder = false, style } = props;
   return (
     <OuterCard edges={edges} style={style}>
-      <InnerCard withBorder={withBorder}>{props.children}</InnerCard>
+      <InnerBorder withBorder={withBorder} />
+      {props.children}
     </OuterCard>
   );
 };

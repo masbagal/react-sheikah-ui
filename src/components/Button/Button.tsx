@@ -16,7 +16,7 @@ export interface ButtonProps {
  * ===================================
  * */
 const OuterButton = styled.button`
-  padding: 1px;
+  padding: 0.5rem 2.5rem;
   cursor: pointer;
   font-family: inherit;
   border: none;
@@ -39,11 +39,13 @@ const OuterButton = styled.button`
 
 const InnerButton = styled.div<{ isFocused: boolean }>`
   box-sizing: border-box;
-  padding: 0.5rem 2.5rem;
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
   border-style: solid;
   border-width: 1px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
   border-color: ${props =>
     props.isFocused ? Colors.uiLight : Colors.uiDarkSecondary};
   box-shadow: ${props =>
@@ -59,6 +61,7 @@ const AnimatedArrowContainer = styled(motion.div)<{ isFocused: boolean }>`
   width: 100%;
   height: 100%;
   z-index: 0;
+  transform-origin: center;
   visibility: ${props => (props.isFocused ? 'visible' : 'hidden')};
 `;
 
@@ -107,7 +110,8 @@ const Button: React.FC<ButtonProps> = props => {
   function handleEnterFocus() {
     toggleFocus(true);
     controls.start({
-      scale: 1.08,
+      scaleX: 1.08,
+      scaleY: 1.15,
       transition: { duration: 0.2, repeatType: 'reverse', repeat: Infinity },
     });
   }
@@ -115,7 +119,8 @@ const Button: React.FC<ButtonProps> = props => {
   function handleExitFocus() {
     toggleFocus(false);
     controls.start({
-      scale: 1,
+      scaleX: 1,
+      scaleY: 1,
       transition: { duration: 0.2 },
     });
   }
@@ -133,8 +138,8 @@ const Button: React.FC<ButtonProps> = props => {
       onMouseLeave={handleExitFocus}
       style={style}
     >
+      <Text>{text}</Text>
       <InnerButton isFocused={isFocused}>
-        <Text>{text}</Text>
         <AnimatedArrowContainer animate={controls} isFocused={isFocused}>
           <ArrowTopLeft />
           <ArrowTopRight />

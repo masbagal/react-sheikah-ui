@@ -9,6 +9,8 @@ const Container = styled.div`
   background: ${Colors.uiDarkPrimary};
   padding: 0.5rem 1rem;
   border-radius: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 0.25rem;
 `;
 
 export default {
@@ -36,15 +38,15 @@ export const AllVariants = () => (
     <div>large</div>
     <Container>
       <Text variant="large">
-        If you return my lost <span className="text-uiCyan">Korok Seed</span> to
-        me, I can expand the size of your inventory.
+        If you return my lost <Text color="uiCyan">Korok Seed</Text> to me, I
+        can expand the size of your inventory.
       </Text>
     </Container>
     <div>base</div>
     <Container>
       <Text variant="base">
-        If you return my lost <span className="text-uiCyan">Korok Seed</span> to
-        me, I can expand the size of your inventory.
+        If you return my lost <Text color="uiCyan">Korok Seed</Text> to me, I
+        can expand the size of your inventory.
       </Text>
     </Container>
     <div>small</div>

@@ -26,7 +26,9 @@ export default {
 
 export const Default = (args: DialogueCardProps) => (
   <DialogueCard className="m-4" legend={args.legend}>
-    <Text variant="large">Impressive, I know.</Text>
+    <Text variant="large" block>
+      Impressive, I know.
+    </Text>
     <Text variant="large">Very few can achieve a mastery of the sky.</Text>
   </DialogueCard>
 );
@@ -35,8 +37,12 @@ export const Example = () => (
   <>
     <Container>
       <DialogueCard className="m-4" legend="Revali">
-        <Text variant="large">Impressive, I know.</Text>
-        <Text variant="large">Very few can achieve a mastery of the sky.</Text>
+        <Text variant="large" block>
+          Impressive, I know.
+        </Text>
+        <Text variant="large" block>
+          Very few can achieve a mastery of the sky.
+        </Text>
       </DialogueCard>
     </Container>
   </>
