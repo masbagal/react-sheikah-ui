@@ -19,8 +19,9 @@ export default {
 
 export const Default = (args: DropdownFieldProps) => {
   const theme = useTheme();
+  const containerBg = theme.currentTheme === 'dark' ? '#434343' : '#eaeaea';
   return (
-    <Container background={theme.color.uiDarkPrimary}>
+    <Container background={containerBg}>
       <DropdownField {...args} />
     </Container>
   );

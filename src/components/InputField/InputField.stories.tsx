@@ -19,8 +19,9 @@ export default {
 
 export const Default = (args: InputFieldProps) => {
   const theme = useTheme();
+  const containerBg = theme.currentTheme === 'dark' ? '#434343' : '#eaeaea';
   return (
-    <Container background={theme.color.uiDarkPrimary}>
+    <Container background={containerBg}>
       <InputField {...args} />
     </Container>
   );

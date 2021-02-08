@@ -8,7 +8,7 @@ export const parameters = {
 
 export const decorators = [
   Story => (
-    <StyleWrapper theme="dark">
+    <StyleWrapper theme="light">
       <Story />
     </StyleWrapper>
   ),
