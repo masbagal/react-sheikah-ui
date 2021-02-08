@@ -2,14 +2,14 @@ import React from 'react';
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import { Meta } from '@storybook/react/types-6-0';
 import styled from 'styled-components';
-
+import { useTheme } from '../StyleWrapper';
 import DropdownField, { DropdownFieldProps } from './DropdownField';
 
-const Container = styled.div`
+const Container = styled.div<{ background: string }>`
   margin-bottom: 2rem;
   padding: 4rem;
   width: 80%;
-  background: #434343;
+  background: ${props => props.background};
 `;
 
 export default {
@@ -17,11 +17,14 @@ export default {
   component: DropdownField,
 } as Meta;
 
-export const Default = (args: DropdownFieldProps) => (
-  <Container>
-    <DropdownField {...args} />
-  </Container>
-);
+export const Default = (args: DropdownFieldProps) => {
+  const theme = useTheme();
+  return (
+    <Container background={theme.color.uiDarkPrimary}>
+      <DropdownField {...args} />
+    </Container>
+  );
+};
 
 Default.args = {
   type: 'text',

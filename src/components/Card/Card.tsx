@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import styled from 'styled-components';
-import { Colors } from '../Token/Token';
+import { useTheme } from '../StyleWrapper';
 
 export interface CardProps {
   edges?: 'hard' | 'soft';
@@ -14,18 +14,18 @@ const EDGE_MAPPING: { [key: string]: string } = {
   soft: `0.25rem`,
 };
 
-const OuterCard = styled.div<{ edges: CardProps['edges'] }>`
-  background-color: ${Colors.uiDarkPrimary}c8;
+const OuterCard = styled.div<{ background: string; edges: CardProps['edges'] }>`
+  background-color: ${props => props.background}c8;
   backdrop-filter: blur(2px);
   position: relative;
   border-radius: ${props => EDGE_MAPPING[props.edges as string]};
 `;
 
-const InnerBorder = styled.div<{ withBorder: boolean }>`
+const InnerBorder = styled.div<{ borderColor: string; withBorder: boolean }>`
   width: calc(100% - 6px);
   height: calc(100% - 6px);
   border-style: solid;
-  border-color: ${Colors.uiDarkSecondary};
+  border-color: ${props => props.borderColor};
   border-width: ${props => (props.withBorder ? '1px' : 0)};
   position: absolute;
   top: 2px;
@@ -34,9 +34,18 @@ const InnerBorder = styled.div<{ withBorder: boolean }>`
 
 const Card: React.FC<CardProps> = props => {
   const { edges, withBorder = false, style } = props;
+  const theme = useTheme();
+
   return (
-    <OuterCard edges={edges} style={style}>
-      <InnerBorder withBorder={withBorder} />
+    <OuterCard
+      edges={edges}
+      style={style}
+      background={theme.color.uiDarkPrimary}
+    >
+      <InnerBorder
+        withBorder={withBorder}
+        borderColor={theme.color.uiDarkSecondary}
+      />
       {props.children}
     </OuterCard>
   );

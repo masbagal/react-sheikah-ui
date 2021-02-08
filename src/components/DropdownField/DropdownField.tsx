@@ -1,7 +1,7 @@
 import React, { InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
-import { Colors } from '../Token/Token';
 import Text from '../Text/Text';
+import { useTheme } from '../StyleWrapper';
 
 type OptionProps = {
   label: string;
@@ -26,23 +26,27 @@ const Label = styled.label`
   margin-bottom: 0.25rem;
 `;
 
-const Select = styled.select<{ isError?: boolean }>`
+const Select = styled.select<{
+  background: string;
+  textColor: string;
+  activeBorderColor: string;
+  borderColor: string;
+}>`
   font-family: Roboto, sans-serif;
   font-size: 1.1rem;
   padding: 0.75rem 0.5rem;
   border: none;
   border-bottom-width: 2px;
   border-bottom-style: solid;
-  background: ${Colors.uiDarkPrimary}a9;
-  color: ${Colors.uiLight};
+  background: ${props => props.background}a9;
+  color: ${props => props.textColor};
 
   &:focus {
     outline: none;
-    border-bottom-color: ${Colors.uiBlue};
+    border-bottom-color: ${props => props.activeBorderColor};
   }
 
-  border-bottom-color: ${props =>
-    props.isError ? Colors.uiRed : Colors.uiDarkSecondary};
+  border-bottom-color: ${props => props.borderColor};
 `;
 
 const HelperContainer = styled.div`
@@ -59,6 +63,7 @@ const DropdownField: React.FC<DropdownFieldProps> = props => {
     options,
     ...rest
   } = props;
+  const theme = useTheme();
 
   return (
     <FieldContainer>
@@ -67,7 +72,13 @@ const DropdownField: React.FC<DropdownFieldProps> = props => {
           {label}
         </Text>
       </Label>
-      <Select isError={isError} {...rest}>
+      <Select
+        background={theme.color.uiDarkPrimary}
+        textColor={theme.color.uiLightPrimary}
+        activeBorderColor={theme.color.uiBlue}
+        borderColor={isError ? theme.color.uiRed : theme.color.uiDarkSecondary}
+        {...rest}
+      >
         {options.map(option => (
           <option key={option.value} value={option.value}>
             {option.label}

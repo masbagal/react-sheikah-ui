@@ -1,7 +1,7 @@
 import React, { CSSProperties, useState } from 'react';
 import styled from 'styled-components';
 import { motion, useAnimation } from 'framer-motion';
-import { Colors } from '../Token/Token';
+import { useTheme } from '../StyleWrapper';
 import Text from '../Text/Text';
 
 export interface ButtonProps {
@@ -15,13 +15,13 @@ export interface ButtonProps {
  * Styled Component
  * ===================================
  * */
-const OuterButton = styled.button`
+const OuterButton = styled.button<{ background: string }>`
   padding: 0.5rem 2.5rem;
   cursor: pointer;
   font-family: inherit;
   border: none;
   box-sizing: border-box;
-  background: ${Colors.uiDarkPrimary}dd;
+  background: ${props => props.background}dd;
   border-radius: 0.125rem;
   position: relative;
   &:focus {
@@ -29,15 +29,7 @@ const OuterButton = styled.button`
   }
 `;
 
-// const OuterButton = tw.button`box-content focus:outline-none p-hairline bg-uiDarkPrimary bg-opacity-90 rounded-sm text-uiLight relative`;
-
-/**
- * ===================================
- * Styles
- * ===================================
- * */
-
-const InnerButton = styled.div<{ isFocused: boolean }>`
+const InnerButton = styled.div<{ isFocused: boolean; borderColor: string }>`
   box-sizing: border-box;
   width: calc(100% - 4px);
   height: calc(100% - 4px);
@@ -46,8 +38,7 @@ const InnerButton = styled.div<{ isFocused: boolean }>`
   position: absolute;
   top: 2px;
   left: 2px;
-  border-color: ${props =>
-    props.isFocused ? Colors.uiLight : Colors.uiDarkSecondary};
+  border-color: ${props => props.borderColor};
   box-shadow: ${props =>
     props.isFocused ? '0px 0px 10px 2px rgba(252, 254, 231, 0.9)' : 'none'};
 `;
@@ -65,10 +56,10 @@ const AnimatedArrowContainer = styled(motion.div)<{ isFocused: boolean }>`
   visibility: ${props => (props.isFocused ? 'visible' : 'hidden')};
 `;
 
-const Arrow = styled.div`
+const Arrow = styled.div<{ color: string }>`
   height: 0;
   width: 0;
-  border-color: ${Colors.uiLight};
+  border-color: ${props => props.color};
   border-width: 4px;
   border-style: solid;
   position: absolute;
@@ -106,6 +97,7 @@ const Button: React.FC<ButtonProps> = props => {
   const { text, onClick, style } = props;
   const [isFocused, toggleFocus] = useState(false);
   const controls = useAnimation();
+  const theme = useTheme();
 
   function handleEnterFocus() {
     toggleFocus(true);
@@ -129,8 +121,19 @@ const Button: React.FC<ButtonProps> = props => {
     onClick(e);
   }
 
+  const borderGlow =
+    theme.currentTheme === 'dark'
+      ? theme.color.uiLightPrimary
+      : theme.color.uiYellow;
+  const arrowColor =
+    theme.currentTheme === 'dark'
+      ? theme.color.uiLightPrimary
+      : theme.color.uiYellow;
+  const borderColor = isFocused ? borderGlow : theme.color.uiDarkSecondary;
+
   return (
     <OuterButton
+      background={theme.color.uiDarkPrimary}
       onClick={handleClick}
       onFocus={handleEnterFocus}
       onMouseEnter={handleEnterFocus}
@@ -139,12 +142,12 @@ const Button: React.FC<ButtonProps> = props => {
       style={style}
     >
       <Text>{text}</Text>
-      <InnerButton isFocused={isFocused}>
+      <InnerButton isFocused={isFocused} borderColor={borderColor}>
         <AnimatedArrowContainer animate={controls} isFocused={isFocused}>
-          <ArrowTopLeft />
-          <ArrowTopRight />
-          <ArrowBottomLeft />
-          <ArrowBottomRight />
+          <ArrowTopLeft color={arrowColor} />
+          <ArrowTopRight color={arrowColor} />
+          <ArrowBottomLeft color={arrowColor} />
+          <ArrowBottomRight color={arrowColor} />
         </AnimatedArrowContainer>
       </InnerButton>
     </OuterButton>

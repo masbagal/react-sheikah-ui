@@ -1,7 +1,7 @@
 import React, { InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
-import { Colors } from '../Token/Token';
 import Text from '../Text/Text';
+import { useTheme } from '../StyleWrapper';
 
 export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -33,23 +33,27 @@ const Label = styled.label`
   margin-bottom: 0.25rem;
 `;
 
-const Input = styled.input<{ isError?: boolean }>`
+const Input = styled.input<{
+  background: string;
+  textColor: string;
+  activeBorderColor: string;
+  borderColor: string;
+}>`
   font-family: Roboto, sans-serif;
   font-size: 1.1rem;
   padding: 0.75rem 0.5rem;
   border: none;
   border-bottom-width: 2px;
   border-bottom-style: solid;
-  background: ${Colors.uiDarkPrimary}a9;
-  color: ${Colors.uiLight};
+  background: ${props => props.background}a9;
+  color: ${props => props.textColor};
 
   &:focus {
     outline: none;
-    border-bottom-color: ${Colors.uiBlue};
+    border-bottom-color: ${props => props.activeBorderColor};
   }
 
-  border-bottom-color: ${props =>
-    props.isError ? Colors.uiRed : Colors.uiDarkSecondary};
+  border-bottom-color: ${props => props.borderColor};
 `;
 
 const HelperContainer = styled.div`
@@ -58,6 +62,7 @@ const HelperContainer = styled.div`
 
 const InputField: React.FC<InputFieldProps> = props => {
   const { label, helperText, isError, errorText, type, ...rest } = props;
+  const theme = useTheme();
 
   return (
     <FieldContainer>
@@ -66,7 +71,14 @@ const InputField: React.FC<InputFieldProps> = props => {
           {label}
         </Text>
       </Label>
-      <Input isError={isError} type={type} {...rest} />
+      <Input
+        background={theme.color.uiDarkPrimary}
+        textColor={theme.color.uiLightPrimary}
+        activeBorderColor={theme.color.uiBlue}
+        borderColor={isError ? theme.color.uiRed : theme.color.uiDarkSecondary}
+        type={type}
+        {...rest}
+      />
       <HelperContainer>
         {isError ? (
           <Text variant="tiny" color="uiRed" style={{ fontWeight: 'bold' }}>
