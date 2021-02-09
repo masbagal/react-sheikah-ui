@@ -8,6 +8,8 @@ export type ColorEnum =
   | 'uiYellow' 
   | 'uiRed' 
   | 'uiGreen' 
+  | 'uiTrueBlack'
+  | 'uiTrueWhite'
 
 export type FontSizeEnum = 
 | 'tiny' 
@@ -38,12 +40,14 @@ const otherColors = {
   uiYellow: "#F6C906",
   uiRed: "#D42E47",
   uiGreen: "#B7E507",
+  uiTrueWhite: "#FCFEE7",
+  uiTrueBlack: "#1D262F",
 } 
 
 const lightColors: Record<ColorEnum, string> = Object.assign({}, lightColorsPrimary, otherColors);
 const darkColors: Record<ColorEnum, string> = Object.assign({}, darkColorsPrimary, otherColors);
 
-const fontSize: Record<FontSizeEnum, string> = {
+export const fontSize: Record<FontSizeEnum, string> = {
   tiny : '0.75rem',
   small : '0.875rem',
   base : '1rem',
