@@ -4,4 +4,6 @@ export { default as RoundedButton } from './components/RoundedButton/RoundedButt
 export { default as Card } from './components/Card/Card';
 export { default as DialogueCard } from './components/DialogueCard/DialogueCard';
 export { default as Toast } from './components/Toast/Toast';
+export { default as InputField } from './components/InputField/InputField';
+export { default as DropdownField } from './components/DropdownField/DropdownField';
 export { StyleWrapper, useTheme } from './components/StyleWrapper';

@@ -3,7 +3,7 @@ import React from 'react';
 import { Meta } from '@storybook/react/types-6-0';
 import styled from 'styled-components';
 
-import RoundedButton from './Toast';
+import Toast from './Toast';
 
 const Container = styled.div`
   margin-bottom: 2rem;
@@ -19,20 +19,23 @@ const Container = styled.div`
 
 export default {
   title: 'Component/Toast',
-  component: RoundedButton,
+  component: Toast,
   argTypes: { onClose: { action: 'close' } },
 } as Meta;
 
-export const Default = (args: any) => (
-  <Container>
-    <RoundedButton {...args} />
-  </Container>
-);
+export const Default = (args: any) => {
+  return (
+    <Container>
+      <Toast {...args} />
+    </Container>
+  );
+};
 
 Default.args = {
   text: 'Raw Chicken Drumstick',
-  type: 'default',
   visible: true,
   imageSrc:
     'https://static.wikia.nocookie.net/zelda/images/0/0c/Breath_of_the_Wild_Meat_Raw_Bird_Drumstick_%28Icon%29.png',
+  visibleDuration: 3000,
+  imageAlt: 'Drumstick',
 };

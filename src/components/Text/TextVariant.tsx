@@ -12,7 +12,8 @@ const StyledText = styled.div<{
   border-bottom-style: solid;
   border-bottom-color: ${props => props.borderColor};
   border-bottom-width: ${props => (props.withDivider ? '1px' : '0')};
-  display: ${props => (props.block ? 'block' : 'inline-block')};
+  display: ${props =>
+    props.block || props.withDivider ? 'block' : 'inline-block'};
 `;
 
 export const Title1Text = styled(StyledText)`

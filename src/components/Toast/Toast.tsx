@@ -12,6 +12,7 @@ export interface ToastProps {
   visible: boolean;
   visibleDuration?: number;
   onClose: () => void;
+  imageAlt?: string;
   type: 'default' | 'error' | 'success' | 'warn';
 }
 
@@ -85,6 +86,7 @@ const Toast: React.FC<ToastProps> = props => {
     visible = false,
     visibleDuration = 3000,
     onClose,
+    imageAlt,
   } = props;
   const theme = useTheme();
   const alertBackgroundType = COLOR_TYPE[type];
@@ -105,35 +107,36 @@ const Toast: React.FC<ToastProps> = props => {
   );
 
   return (
-    <AnimatePresence>
-      {visible ? (
-        <StyledAlert>
-          <motion.div
-            transition={{ duration: 0.3 }}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={variants}
-          >
-            <AlertInnerContainer>
-              <AlertBackground
-                background={alertBackground}
-                id="alertbackground"
-              />
-              <AlertContent>
-                {imageSrc ? (
-                  <AlertImageContainer id="imageContainer">
-                    <AlertImage src={imageSrc} />
-                  </AlertImageContainer>
-                ) : null}
-                {alertText}
-              </AlertContent>
-            </AlertInnerContainer>
-          </motion.div>
-        </StyledAlert>
-      ) : null}
-    </AnimatePresence>
+    <StyledAlert>
+      <motion.div
+        transition={{ duration: 0.3 }}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        variants={variants}
+      >
+        <AlertInnerContainer>
+          <AlertBackground background={alertBackground} id="alertbackground" />
+          <AlertContent>
+            {imageSrc ? (
+              <AlertImageContainer id="imageContainer">
+                <AlertImage src={imageSrc} alt={imageAlt} />
+              </AlertImageContainer>
+            ) : null}
+            {alertText}
+          </AlertContent>
+        </AlertInnerContainer>
+      </motion.div>
+    </StyledAlert>
   );
 };
 
-export default Toast;
+const ToastWrapper: React.FC<ToastProps> = props => {
+  const { visible } = props;
+
+  return (
+    <AnimatePresence>{visible ? <Toast {...props} /> : null}</AnimatePresence>
+  );
+};
+
+export default ToastWrapper;
