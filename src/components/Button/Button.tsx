@@ -8,6 +8,7 @@ export interface ButtonProps {
   text: string;
   onClick: (e: React.MouseEvent<HTMLElement>) => void;
   style?: CSSProperties;
+  className?: string;
 }
 
 /**
@@ -94,7 +95,7 @@ const ArrowBottomRight = styled(Arrow)`
 `;
 
 const Button: React.FC<ButtonProps> = props => {
-  const { text, onClick, style } = props;
+  const { text, onClick, style, className } = props;
   const [isFocused, toggleFocus] = useState(false);
   const controls = useAnimation();
   const theme = useTheme();
@@ -140,6 +141,7 @@ const Button: React.FC<ButtonProps> = props => {
       onBlur={handleExitFocus}
       onMouseLeave={handleExitFocus}
       style={style}
+      className={className}
     >
       <Text>{text}</Text>
       <InnerButton isFocused={isFocused} borderColor={borderColor}>

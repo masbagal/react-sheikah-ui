@@ -25,7 +25,7 @@ export default {
 } as Meta;
 
 export const Default = (args: DialogueCardProps) => (
-  <DialogueCard className="m-4" legend={args.legend}>
+  <DialogueCard legend={args.legend}>
     <Text variant="large" block>
       Impressive, I know.
     </Text>
@@ -36,7 +36,7 @@ export const Default = (args: DialogueCardProps) => (
 export const Example = () => (
   <>
     <Container>
-      <DialogueCard className="m-4" legend="Revali">
+      <DialogueCard legend="Revali">
         <Text variant="large" block>
           Impressive, I know.
         </Text>
