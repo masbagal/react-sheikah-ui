@@ -41,6 +41,7 @@ const Input = styled.input<{
   borderColor: string;
   disabled?: boolean;
 }>`
+  border-radius: 0;
   font-family: Roboto, sans-serif;
   font-size: 1.1rem;
   padding: 0.75rem 0.5rem;
