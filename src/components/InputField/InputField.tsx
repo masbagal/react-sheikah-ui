@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from 'react';
+import React, { CSSProperties, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import Text from '../Text/Text';
 import { useTheme } from '../StyleWrapper';
@@ -8,6 +8,7 @@ export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   isError?: boolean;
   helperText?: string;
   errorText?: string;
+  containerStyle?: CSSProperties;
   type?:
     | 'color'
     | 'date'
@@ -61,11 +62,19 @@ const HelperContainer = styled.div`
 `;
 
 const InputField: React.FC<InputFieldProps> = props => {
-  const { label, helperText, isError, errorText, type, ...rest } = props;
+  const {
+    label,
+    helperText,
+    isError,
+    errorText,
+    type,
+    containerStyle,
+    ...rest
+  } = props;
   const theme = useTheme();
 
   return (
-    <FieldContainer>
+    <FieldContainer style={containerStyle}>
       <Label>
         <Text variant="small" style={{ fontWeight: 'bold' }}>
           {label}

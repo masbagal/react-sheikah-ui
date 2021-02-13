@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from 'react';
+import React, { CSSProperties, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import Text from '../Text/Text';
 import { useTheme } from '../StyleWrapper';
@@ -14,6 +14,7 @@ export interface DropdownFieldProps
   isError?: boolean;
   helperText?: string;
   errorText?: string;
+  containerStyle?: CSSProperties;
   options: Array<OptionProps>;
 }
 
@@ -60,12 +61,13 @@ const DropdownField: React.FC<DropdownFieldProps> = props => {
     errorText,
     type,
     options,
+    containerStyle,
     ...rest
   } = props;
   const theme = useTheme();
 
   return (
-    <FieldContainer>
+    <FieldContainer style={containerStyle}>
       <Label>
         <Text variant="small" style={{ fontWeight: 'bold' }}>
           {label}
