@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import Alert from '@reach/alert';
@@ -134,9 +135,20 @@ const Toast: React.FC<ToastProps> = props => {
 const ToastWrapper: React.FC<ToastProps> = props => {
   const { visible } = props;
 
-  return (
-    <AnimatePresence>{visible ? <Toast {...props} /> : null}</AnimatePresence>
-  );
+  const [isClient, setClient] = useState(false);
+
+  useEffect(() => {
+    setClient(true);
+  }, []);
+
+  return isClient
+    ? ReactDOM.createPortal(
+        <AnimatePresence>
+          {visible ? <Toast {...props} /> : null}
+        </AnimatePresence>,
+        document.body
+      )
+    : null;
 };
 
 export default ToastWrapper;

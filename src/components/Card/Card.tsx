@@ -34,8 +34,8 @@ const InnerBorder = styled.div<{ borderColor: string; withBorder: boolean }>`
   border-color: ${props => props.borderColor};
   border-width: ${props => (props.withBorder ? '1px' : 0)};
   position: absolute;
-  top: 2px;
-  left: 2px;
+  top: 3px;
+  left: 3px;
 `;
 
 const Card: React.FC<CardProps> = props => {

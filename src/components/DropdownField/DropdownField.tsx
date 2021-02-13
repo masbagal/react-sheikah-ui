@@ -26,7 +26,7 @@ const Label = styled.label`
   margin-bottom: 0.25rem;
 `;
 
-const Select = styled.select<{
+const StyledSelect = styled.select<{
   background: string;
   textColor: string;
   activeBorderColor: string;
@@ -40,13 +40,12 @@ const Select = styled.select<{
   border-bottom-style: solid;
   background: ${props => props.background}a9;
   color: ${props => props.textColor};
+  border-bottom-color: ${props => props.borderColor};
 
   &:focus {
     outline: none;
     border-bottom-color: ${props => props.activeBorderColor};
   }
-
-  border-bottom-color: ${props => props.borderColor};
 `;
 
 const HelperContainer = styled.div`
@@ -72,7 +71,7 @@ const DropdownField: React.FC<DropdownFieldProps> = props => {
           {label}
         </Text>
       </Label>
-      <Select
+      <StyledSelect
         background={theme.color.uiDarkPrimary}
         textColor={theme.color.uiLightPrimary}
         activeBorderColor={theme.color.uiBlue}
@@ -84,7 +83,7 @@ const DropdownField: React.FC<DropdownFieldProps> = props => {
             {option.label}
           </option>
         ))}
-      </Select>
+      </StyledSelect>
       <HelperContainer>
         {isError ? (
           <Text variant="tiny" color="uiRed" style={{ fontWeight: 'bold' }}>
