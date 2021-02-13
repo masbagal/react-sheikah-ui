@@ -38,8 +38,8 @@ const InnerButtonBorder = styled.div<{
   border-width: 1px;
   border-style: solid;
   position: absolute;
-  top: 2px;
-  left: 2px;
+  top: 3px;
+  left: 3px;
   height: calc(100% - 6px);
   width: calc(100% - 6px);
   border-color: ${props => props.borderColor};
