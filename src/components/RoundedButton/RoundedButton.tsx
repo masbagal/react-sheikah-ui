@@ -24,7 +24,7 @@ const OuterRoundedButton = styled.button<{
   font-family: inherit;
   position: relative;
   filter: ${props => (props.disabled ? 'brightness(0.5)' : undefined)};
-  cursor: ${props => (props.disabled ? 'not-allowed' : 'initial')};
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
   &:focus {
     outline: none;
   }

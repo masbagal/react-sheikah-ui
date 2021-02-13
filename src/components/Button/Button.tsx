@@ -27,7 +27,7 @@ const OuterButton = styled.button<{ background: string; disabled?: boolean }>`
   border-radius: 0.125rem;
   position: relative;
   filter: ${props => (props.disabled ? 'brightness(0.5)' : undefined)};
-  cursor: ${props => (props.disabled ? 'not-allowed' : 'initial')};
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
   &:focus {
     outline: none; // <Thing> when hovered
   }
