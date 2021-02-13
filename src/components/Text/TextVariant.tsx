@@ -8,6 +8,7 @@ const StyledText = styled.div<{
   block: boolean;
 }>`
   font-family: Roboto, sans-serif;
+  font-style: italic;
   color: ${props => props.color};
   border-bottom-style: solid;
   border-bottom-color: ${props => props.borderColor};

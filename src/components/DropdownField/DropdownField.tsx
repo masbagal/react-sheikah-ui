@@ -34,6 +34,9 @@ const StyledSelect = styled.select<{
   borderColor: string;
   disabled?: boolean;
 }>`
+  width: inherit;
+  -webkit-appearance: none;
+  border-radius: 0;
   font-family: Roboto, sans-serif;
   font-size: 1.1rem;
   padding: 0.75rem 0.5rem;
@@ -50,6 +53,22 @@ const StyledSelect = styled.select<{
     outline: none;
     border-bottom-color: ${props => props.activeBorderColor};
   }
+`;
+
+const SelectWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+const Arrow = styled.div<{ color: string }>`
+  height: 0;
+  width: 0;
+  border: 8px solid transparent;
+  border-top: 8px solid white;
+  position: absolute;
+  right: 1rem;
+  top: calc(50% - 4px);
+  pointer-events: none;
 `;
 
 const HelperContainer = styled.div`
@@ -80,20 +99,25 @@ const DropdownField: React.FC<DropdownFieldProps> = props => {
           {label}
         </Text>
       </Label>
-      <StyledSelect
-        disabled={disabled}
-        background={theme.color.uiDarkPrimary}
-        textColor={theme.color.uiLightPrimary}
-        activeBorderColor={theme.color.uiBlue}
-        borderColor={isError ? theme.color.uiRed : theme.color.uiDarkSecondary}
-        {...rest}
-      >
-        {options.map(option => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </StyledSelect>
+      <SelectWrapper>
+        <StyledSelect
+          disabled={disabled}
+          background={theme.color.uiDarkPrimary}
+          textColor={theme.color.uiLightPrimary}
+          activeBorderColor={theme.color.uiBlue}
+          borderColor={
+            isError ? theme.color.uiRed : theme.color.uiDarkSecondary
+          }
+          {...rest}
+        >
+          {options.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </StyledSelect>
+        <Arrow color="white" />
+      </SelectWrapper>
       <HelperContainer>
         {isError ? (
           <Text variant="tiny" color="uiRed" style={{ fontWeight: 'bold' }}>
