@@ -9,6 +9,7 @@ export interface ButtonProps {
   onClick: (e: React.MouseEvent<HTMLElement>) => void;
   style?: CSSProperties;
   className?: string;
+  disabled?: boolean;
 }
 
 /**
@@ -16,7 +17,7 @@ export interface ButtonProps {
  * Styled Component
  * ===================================
  * */
-const OuterButton = styled.button<{ background: string }>`
+const OuterButton = styled.button<{ background: string; disabled?: boolean }>`
   padding: 0.5rem 2.5rem;
   cursor: pointer;
   font-family: inherit;
@@ -25,6 +26,8 @@ const OuterButton = styled.button<{ background: string }>`
   background: ${props => props.background}dd;
   border-radius: 0.125rem;
   position: relative;
+  filter: ${props => (props.disabled ? 'brightness(0.5)' : undefined)};
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'initial')};
   &:focus {
     outline: none; // <Thing> when hovered
   }
@@ -95,7 +98,7 @@ const ArrowBottomRight = styled(Arrow)`
 `;
 
 const Button: React.FC<ButtonProps> = props => {
-  const { text, onClick, style, className } = props;
+  const { text, onClick, style, className, disabled } = props;
   const [isFocused, toggleFocus] = useState(false);
   const controls = useAnimation();
   const theme = useTheme();
@@ -119,7 +122,7 @@ const Button: React.FC<ButtonProps> = props => {
   }
 
   function handleClick(e: React.MouseEvent<HTMLElement>) {
-    onClick(e);
+    !disabled && onClick(e);
   }
 
   const borderGlow =
@@ -134,6 +137,7 @@ const Button: React.FC<ButtonProps> = props => {
 
   return (
     <OuterButton
+      disabled={disabled}
       background={theme.color.uiDarkPrimary}
       onClick={handleClick}
       onFocus={handleEnterFocus}

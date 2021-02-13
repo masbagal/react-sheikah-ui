@@ -34,4 +34,5 @@ Default.args = {
   errorText: 'There has been an error in this input',
   isError: false,
   placeholder: 'input your name here',
+  disabled: false,
 };

@@ -8,9 +8,13 @@ export interface RoundedButtonProps {
   className?: string;
   onClick: (e: React.MouseEvent<HTMLElement>) => void;
   style?: CSSProperties;
+  disabled?: boolean;
 }
 
-const OuterRoundedButton = styled.button<{ background: string }>`
+const OuterRoundedButton = styled.button<{
+  background: string;
+  disabled?: boolean;
+}>`
   cursor: pointer;
   border: none;
   background: ${props => props.background}dd;
@@ -19,6 +23,8 @@ const OuterRoundedButton = styled.button<{ background: string }>`
   padding: 0.5rem 2.5rem;
   font-family: inherit;
   position: relative;
+  filter: ${props => (props.disabled ? 'brightness(0.5)' : undefined)};
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'initial')};
   &:focus {
     outline: none;
   }
@@ -42,7 +48,7 @@ const InnerButtonBorder = styled.div<{
 `;
 
 const RoundedButton: React.FC<RoundedButtonProps> = props => {
-  const { text, className, onClick, style } = props;
+  const { text, className, onClick, style, disabled } = props;
   const theme = useTheme();
   const [isFocused, toggleFocus] = useState(false);
 
@@ -66,6 +72,7 @@ const RoundedButton: React.FC<RoundedButtonProps> = props => {
 
   return (
     <OuterRoundedButton
+      disabled={disabled}
       background={theme.color.uiDarkPrimary}
       className={className}
       onClick={handleClick}

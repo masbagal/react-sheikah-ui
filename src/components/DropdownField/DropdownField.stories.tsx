@@ -51,4 +51,5 @@ Default.args = {
   helperText: 'Your weapon that will be used in the next battle',
   errorText: 'There has been an error in this input',
   isError: false,
+  disabled: false,
 };

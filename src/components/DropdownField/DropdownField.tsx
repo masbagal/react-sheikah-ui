@@ -32,6 +32,7 @@ const StyledSelect = styled.select<{
   textColor: string;
   activeBorderColor: string;
   borderColor: string;
+  disabled?: boolean;
 }>`
   font-family: Roboto, sans-serif;
   font-size: 1.1rem;
@@ -39,8 +40,10 @@ const StyledSelect = styled.select<{
   border: none;
   border-bottom-width: 2px;
   border-bottom-style: solid;
-  background: ${props => props.background}a9;
+  background: ${props =>
+    props.disabled ? `${props.background}33` : `${props.background}a9`};
   color: ${props => props.textColor};
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'initial')};
   border-bottom-color: ${props => props.borderColor};
 
   &:focus {
@@ -62,6 +65,7 @@ const DropdownField: React.FC<DropdownFieldProps> = props => {
     type,
     options,
     containerStyle,
+    disabled,
     ...rest
   } = props;
   const theme = useTheme();
@@ -69,11 +73,15 @@ const DropdownField: React.FC<DropdownFieldProps> = props => {
   return (
     <FieldContainer style={containerStyle}>
       <Label>
-        <Text variant="small" style={{ fontWeight: 'bold' }}>
+        <Text
+          variant="small"
+          style={{ fontWeight: 'bold', opacity: disabled ? 0.3 : 1 }}
+        >
           {label}
         </Text>
       </Label>
       <StyledSelect
+        disabled={disabled}
         background={theme.color.uiDarkPrimary}
         textColor={theme.color.uiLightPrimary}
         activeBorderColor={theme.color.uiBlue}

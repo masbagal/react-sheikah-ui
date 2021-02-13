@@ -39,6 +39,7 @@ const Input = styled.input<{
   textColor: string;
   activeBorderColor: string;
   borderColor: string;
+  disabled?: boolean;
 }>`
   font-family: Roboto, sans-serif;
   font-size: 1.1rem;
@@ -46,8 +47,10 @@ const Input = styled.input<{
   border: none;
   border-bottom-width: 2px;
   border-bottom-style: solid;
-  background: ${props => props.background}a9;
+  background: ${props =>
+    props.disabled ? `${props.background}33` : `${props.background}a9`};
   color: ${props => props.textColor};
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'initial')};
 
   &:focus {
     outline: none;
@@ -69,6 +72,7 @@ const InputField: React.FC<InputFieldProps> = props => {
     errorText,
     type,
     containerStyle,
+    disabled,
     ...rest
   } = props;
   const theme = useTheme();
@@ -76,7 +80,10 @@ const InputField: React.FC<InputFieldProps> = props => {
   return (
     <FieldContainer style={containerStyle}>
       <Label>
-        <Text variant="small" style={{ fontWeight: 'bold' }}>
+        <Text
+          variant="small"
+          style={{ fontWeight: 'bold', opacity: disabled ? 0.3 : 1 }}
+        >
           {label}
         </Text>
       </Label>
@@ -86,6 +93,7 @@ const InputField: React.FC<InputFieldProps> = props => {
         activeBorderColor={theme.color.uiBlue}
         borderColor={isError ? theme.color.uiRed : theme.color.uiDarkSecondary}
         type={type}
+        disabled={disabled}
         {...rest}
       />
       <HelperContainer>
