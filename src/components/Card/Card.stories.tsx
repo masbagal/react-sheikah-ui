@@ -28,55 +28,50 @@ export const Default = (args: any) => (
   </Card>
 );
 
-const CardContentExample1 = styled.div`
-  margin: 1rem;
-  padding: 0.5rem;
-`;
+export const SimpleCard = () => (
+  <Container>
+    <Card
+      style={{ width: '300px', padding: '1.25rem' }}
+      edges="hard"
+      withBorder
+    >
+      <Text block variant="title-3" withDivider>
+        Arrow x5
+      </Text>
+      <Text variant="small">A bundle of five common arrows.</Text>
+      <Text variant="small">
+        The shafts of these arrows were carved from the wood of a sturdy tree.
+      </Text>
+    </Card>
+  </Container>
+);
 
-const CardContentExample2 = styled.div`
-  margin: 1rem;
-  padding: 0.5rem;
-  display: flex;
-  justify-items: center;
-`;
-
-export const Examples = () => (
-  <>
-    <Container>
-      <Card width={'300px'} edges="hard" withBorder>
-        <CardContentExample1 className="p-4">
-          <Text variant="title-3" withDivider>
-            Arrow x5
-          </Text>
-          <Text variant="small">A bundle of five common arrows.</Text>
-          <Text variant="small">
-            The shafts of these arrows were carved from the wood of a sturdy
-            tree.
-          </Text>
-        </CardContentExample1>
-      </Card>
-    </Container>
-
-    <Container>
-      <Card width="80%" edges="soft">
-        <CardContentExample2 className="flex md:flex-row flex-col items-center p-8">
-          <img
-            src="https://static.wikia.nocookie.net/zelda/images/b/b3/Breath_of_the_Wild_Food_Dish_%28Skewers%29_Mushroom_Skewers_%28Icon%29.png"
-            alt="Mushroom"
-            width={80}
-          />
-          <div style={{ marginLeft: '1rem' }}>
-            <Text variant="title-2" withDivider>
-              Energizing Mushroom
-            </Text>
-            <Text variant="small">
-              Instantly restores some of your Stamina. This simple
-              mushroom-packed skewer has its colorful presentation to thank for
-              its appeal
-            </Text>
-          </div>
-        </CardContentExample2>
-      </Card>
-    </Container>
-  </>
+export const WithImage = () => (
+  <Container>
+    <Card
+      style={{
+        width: '80%',
+        padding: '2rem',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyItems: 'center',
+      }}
+      edges="soft"
+    >
+      <img
+        src="https://static.wikia.nocookie.net/zelda/images/b/b3/Breath_of_the_Wild_Food_Dish_%28Skewers%29_Mushroom_Skewers_%28Icon%29.png"
+        alt="Mushroom"
+        width={100}
+      />
+      <div style={{ marginLeft: '1rem' }}>
+        <Text block variant="title-2" withDivider>
+          Energizing Mushroom
+        </Text>
+        <Text variant="small">
+          Instantly restores some of your Stamina. This simple mushroom-packed
+          skewer has its colorful presentation to thank for its appeal
+        </Text>
+      </div>
+    </Card>
+  </Container>
 );

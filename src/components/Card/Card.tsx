@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import styled from 'styled-components';
-import { Colors } from '../Token/Token';
+import { useTheme } from '../StyleWrapper';
 
 export interface CardProps {
   edges?: 'hard' | 'soft';
   withBorder?: boolean;
   children: React.ReactNode;
-  width?: HTMLDivElement['style']['width'];
-  style?: HTMLDivElement['style'];
+  style?: CSSProperties;
+  className?: string;
 }
 
 const EDGE_MAPPING: { [key: string]: string } = {
@@ -16,30 +16,45 @@ const EDGE_MAPPING: { [key: string]: string } = {
 };
 
 const OuterCard = styled.div<{
+  background: string;
   edges: CardProps['edges'];
-  width: CardProps['width'];
+  withBorder: boolean;
 }>`
-  background-color: ${Colors.uiDarkPrimary}c8;
-  display: flex;
-  position: relative;
+  background-color: ${props => props.background}c8;
   backdrop-filter: blur(2px);
-  padding: 2px;
-  width: ${props => props.width};
+  position: relative;
   border-radius: ${props => EDGE_MAPPING[props.edges as string]};
+  padding: ${props => (props.withBorder ? '0.25rem' : 0)};
 `;
 
-const InnerCard = styled.div<{ withBorder: boolean }>`
-  width: 100%;
+const InnerBorder = styled.div<{ borderColor: string; withBorder: boolean }>`
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
   border-style: solid;
-  border-color: ${Colors.uiDarkSecondary};
+  border-color: ${props => props.borderColor};
   border-width: ${props => (props.withBorder ? '1px' : 0)};
+  position: absolute;
+  top: 3px;
+  left: 3px;
 `;
 
 const Card: React.FC<CardProps> = props => {
-  const { edges, withBorder = false, width } = props;
+  const { edges, withBorder = false, style, className } = props;
+  const theme = useTheme();
+
   return (
-    <OuterCard edges={edges} width={width}>
-      <InnerCard withBorder={withBorder}>{props.children}</InnerCard>
+    <OuterCard
+      edges={edges}
+      style={style}
+      background={theme.color.uiDarkPrimary}
+      className={className}
+      withBorder={withBorder}
+    >
+      <InnerBorder
+        withBorder={withBorder}
+        borderColor={theme.color.uiDarkSecondary}
+      />
+      {props.children}
     </OuterCard>
   );
 };
@@ -47,7 +62,6 @@ const Card: React.FC<CardProps> = props => {
 Card.defaultProps = {
   withBorder: false,
   edges: 'hard',
-  width: '100%',
 };
 
 export default Card;

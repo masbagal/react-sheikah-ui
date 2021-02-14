@@ -1,5 +1,5 @@
 {
-  "version": "0.1.5",
+  "version": "0.1.17",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -10,6 +10,14 @@
   "engines": {
     "node": ">=10"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:masbagal/react-sheikah-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/masbagal/react-sheikah-ui/issues"
+  },
+  "homepage": "https://react-sheikah-ui.vercel.app",
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
@@ -38,6 +46,7 @@
   "name": "react-sheikah-ui",
   "author": "masbagal",
   "module": "dist/react-sheikah-ui.esm.js",
+  "description": "React components based on The Legend of Zelda: Breath of the Wild game",
   "size-limit": [
     {
       "path": "dist/react-sheikah-ui.cjs.production.min.js",
@@ -71,8 +80,17 @@
   "dependencies": {
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.1.5",
+    "@reach/alert": "^0.13.0",
     "@types/styled-components": "^5.1.7",
     "framer-motion": "^3.3.0",
     "styled-components": "^5.2.1"
-  }
+  },
+  "keywords": [
+    "react",
+    "javascript",
+    "typescript",
+    "ui",
+    "ui-component",
+    "component-library"
+  ]
 }
